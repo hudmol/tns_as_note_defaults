@@ -22,16 +22,9 @@
     });
 
     $(document).on('change', 'select.top-level-note-type', function (e) {
-      var note_type_select = $($(this).closest('div.subrecord-form-fields').find('select.note-type')[0]);
-      var ntype = note_type_select.val();
-
-      if (note_defaults[ntype]) {
-        var ta = note_type_select.closest('div.subrecord-form-container').find('textarea')[0];
-        var cm = $(ta).data('CodeMirror');
-        cm.setValue(note_defaults[ntype]);
-      }
-
+      set_note_default($(this).closest('div.subrecord-form-fields').find('select.note-type')[0]);
     });
+
   });
 
 <% end %>
