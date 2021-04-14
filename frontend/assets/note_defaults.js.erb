@@ -10,10 +10,12 @@
       var ta = $(select).closest('div.subrecord-form-container').find('textarea')[0];
       var cm = $(ta).data('CodeMirror');
 
-      if (note_defaults[ntype]) {
-        cm.setValue(note_defaults[ntype]);
-      } else {
-        cm.setValue('');
+      if (!cm.getValue() || Object.values(note_defaults).includes(cm.getValue())) {
+        if (note_defaults[ntype]) {
+          cm.setValue(note_defaults[ntype]);
+        } else {
+          cm.setValue('');
+        }
       }
     };
 
