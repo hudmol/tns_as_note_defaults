@@ -1,0 +1,38 @@
+
+var note_defaults = {}
+
+<% if AppConfig.has_key?(:note_defaults) %>
+  note_defaults = <%= ASUtils.to_json(AppConfig[:note_defaults]) %>;
+<% end %>
+
+$(function() {
+
+    var set_note_default = function(select) {
+        var ntype = $(select).val();
+
+        var ta = $(select).closest('div.subrecord-form-container').find('textarea')[0];
+        var cm = $(ta).data('CodeMirror');
+
+        if (note_defaults[ntype]) {
+            cm.setValue(note_defaults[ntype]);
+        } else {
+            cm.setValue('');
+        }
+    };
+
+    $(document).on('change', 'select.note-type', function (e) {
+        set_note_default(this);
+    });
+
+    $(document).on('change', 'select.top-level-note-type', function (e) {
+        var note_type_select = $($(this).closest('div.subrecord-form-fields').find('select.note-type')[0]);
+        var ntype = note_type_select.val();
+
+        if (note_defaults[ntype]) {
+            var ta = note_type_select.closest('div.subrecord-form-container').find('textarea')[0];
+            var cm = $(ta).data('CodeMirror');
+            cm.setValue(note_defaults[ntype]);
+        }
+
+    });
+});
