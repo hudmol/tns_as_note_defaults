@@ -1,1 +1,4 @@
+<% if AppConfig.has_key?(:note_defaults) %>
+  <script> const NOTE_DEFAULTS = <%== ASUtils.to_json(AppConfig[:note_defaults]) %>; </script>
+<% end %>
 <%= javascript_include_tag "#{AppConfig[:frontend_proxy_prefix]}assets/note_defaults.js?_t=#{ASConstants.VERSION}" %>
